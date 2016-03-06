@@ -1,11 +1,8 @@
-def app(environ, start_response): 
-    #logic
-    data = environ["QUERY_STRING"]
-    data = "\n".join(data.split("&"))
-    status = '200 OK'
-    heders = [
-    ('Content-Type', 'text/plain'),
-    ('Content-Lenght', str(len(data))),
-    ]
-    start_response(status,headers)
-    return [data]
+def app (environ, start_response):
+    #
+	status = '200 OK'
+	response_headers = [('Content-type','text/plain')]
+	start_response(status, response_headers)
+	resp = environ['QUERY_STRING'].split("&")
+	resp = [item+"\r\n" for item in resp]
+	return resp
